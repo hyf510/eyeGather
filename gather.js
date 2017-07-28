@@ -132,7 +132,8 @@
   };
 
   var xmlHttp = function (url,type,data) {
-    var xml,params = 'prCode='+data;
+    var xml,params = '?prCode='+data;
+    url = url+params;
     if (window.XMLHttpRequest) {
       xml = new XMLHttpRequest();
     } else {
@@ -145,7 +146,7 @@
       }
     };
     xml.open(type, url);
-    xml.send(params);
+    xml.send(null);
   };
 
   /******************************* 请求开关配置 数据上传模块 ******************************/
