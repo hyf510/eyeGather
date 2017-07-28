@@ -132,19 +132,20 @@
   };
 
   var xmlHttp = function (url,type,data) {
-    var xml;
+    var xml,params = 'prCode='+data;
     if (window.XMLHttpRequest) {
       xml = new XMLHttpRequest();
     } else {
       xml = new ActiveXObject("Microsoft.XMLHTTP");
     }
+    xml.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xml.onreadystatechange = function () {
       if (xml.readyState == 4 && xml.status == 200) {
         console.log(xml);
       }
     };
     xml.open(type, url);
-    xml.send(data);
+    xml.send(params);
   };
 
   /******************************* 请求开关配置 数据上传模块 ******************************/
@@ -183,7 +184,7 @@
     //  });
     //  return;
     //}
-   xmlHttp(config.PATH.SWITCHURL,'get',{prCode: prCode})
+   xmlHttp(config.PATH.SWITCHURL,'get',prCode)
   };
 
   var submitData = function () {
