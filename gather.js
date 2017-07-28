@@ -6,7 +6,7 @@
 
   /*
    * @class 系统自定义配置
-   * @FIELD 缓存字段 需要项目登录后配置USER_LOGIN_INFO为本地存储，用以获取客户ID
+   * @FIELD 缓存字段 需要项目登录后配置USER_LOGIN_TEL为本地存储，用以获取客户登录的手机号
    * @APP APP版本号 产品编码 每次更新增量包时需手动设置为最新版本号以及产品编码
    * @FLAG 接口成功标识符
    * @FUN 功能模块简称，用以辅助记录数据内容
@@ -22,11 +22,12 @@
       TAGVALUE: 'SWITCH_STATE_TAGVALUE',
       DURATION: 'SWITCH_OFF_DURATION',
       TRAJECTORY: 'TRAJECTORY_COLLECTION_DATA',
-      USERID:'USER_IDENTITY_ID',
-      LOGINFO:'USER_LOGIN_INFO'
+      USERID: 'USER_IDENTITY_ID',
+      LOGINFO: 'USER_LOGIN_TEL'
     },
     APP: {
-      UPCCODE:'021',
+      UPCCODE: '021',
+      SSENV: 'DEV',
       VERSION: '5.5.0'
     },
     FLAG: {
@@ -35,7 +36,7 @@
     FUN: {
       INTERFACE: 'ie',
       MONITOR: 'ee',
-      CODEERROR:'er'
+      CODEERROR: 'er'
     },
     SWITCHSTATE: {
       switch: 'Y',
@@ -172,7 +173,7 @@
       paramer = {
         prCode: config.APP.UPCCODE,//产品编码
         version: config.APP.VERSION,//APP版本号
-        accountId: localStorage.getItem(config.FIELD.USERID) ? localStorage.getItem(config.FIELD.USERID) : 'TEST001',//用户ID
+        accountId: localStorage.getItem(config.FIELD.USERID) ? localStorage.getItem(config.FIELD.USERID) : '13670838562',//用户登录手机号
         timeAxis: new Date().getTime(),//上传时间点
         dataSet: JSON.parse(localStorage.getItem(config.FIELD.TRAJECTORY)),//数据集
         deviceInfo: getDevice()//设备相关信息
@@ -342,7 +343,6 @@
     var duration = localStorage.getItem(config.FIELD.DURATION),
       history = localStorage.getItem(config.FIELD.USERID),
       login = localStorage.getItem(config.FIELD.LOGINFO);
-    console.log(location.href);
     if(!isExist()){
       console.log('------start 配置信息不存在，重新请求配置信息！-----');
       updateSwitch(config.APP.UPCCODE);
