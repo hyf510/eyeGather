@@ -2,7 +2,7 @@
  * Created by huangyanfeng on 2017/4/19.
  * description：天眼客户端系统-数据采集模块
  */
-define([''], function () {
+(function () {
 
   /*
    * @class 系统自定义配置
@@ -380,7 +380,7 @@ define([''], function () {
   startUp();//根据配置信息执行相关功能模块
 
   /******************************* 程序入口end ******************************/
-});
+})();
 
 
 
