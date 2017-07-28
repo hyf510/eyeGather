@@ -155,7 +155,7 @@
    * */
   var updateSwitch = function (prCode) {
     console.log('-----start 开始获取配置信息！-----');
-    if($){
+    if(!!$){
       $.ajax({
         url: config.PATH.SWITCHURL,
         type: 'get',
@@ -199,7 +199,7 @@
         deviceInfo: getDevice()//设备相关信息
       };
     console.log(paramer);
-    if ($) {
+    if (!!$) {
       $.ajax({
         url: config.PATH.REPORTURL,
         type: 'post',
