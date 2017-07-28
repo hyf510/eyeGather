@@ -140,7 +140,7 @@
     }
     xml.onreadystatechange = function () {
       if (xml.readyState == 4 && xml.status == 200) {
-        console.log('发起请求！');
+        console.log(xml);
       }
     };
     xml.open(type, url);
