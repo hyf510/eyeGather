@@ -2,7 +2,7 @@
  * Created by huangyanfeng on 2017/4/19.
  * description：天眼客户端系统-数据采集模块
  */
-define(['zepto'], function ($) {
+define([''], function () {
 
   /*
    * @class 系统自定义配置
