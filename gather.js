@@ -342,6 +342,7 @@
     var duration = localStorage.getItem(config.FIELD.DURATION),
       history = localStorage.getItem(config.FIELD.USERID),
       login = localStorage.getItem(config.FIELD.LOGINFO);
+    console.log(location.href);
     if(!isExist()){
       console.log('------start 配置信息不存在，重新请求配置信息！-----');
       updateSwitch(config.APP.UPCCODE);
