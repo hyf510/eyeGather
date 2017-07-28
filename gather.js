@@ -131,6 +131,22 @@
     };
   };
 
+  var xmlHttp = function (url,type,data) {
+    var xml;
+    if (window.XMLHttpRequest) {
+      xml = new XMLHttpRequest();
+    } else {
+      xml = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xml.onreadystatechange = function () {
+      if (xml.readyState == 4 && xml.status == 200) {
+        console.log('发起请求！');
+      }
+    };
+    xml.open(type, url);
+    xml.send(data);
+  };
+
   /******************************* 请求开关配置 数据上传模块 ******************************/
 
   /*
@@ -139,31 +155,35 @@
    * */
   var updateSwitch = function (prCode) {
     console.log('-----start 开始获取配置信息！-----');
-    $.ajax({
-      url: config.PATH.SWITCHURL,
-      type: 'get',
-      data: {
-        prCode: prCode
-      },
-      header: {
-        "Origin": "http://localhost:8877"
-      },
-      success: function (res) {
-        console.log(res);
-        if (res && res.flag == '1') {
-          console.log('-----end 配置信息获取结束！------');
-          //存储标记值
-          localStorage.setItem(config.FIELD.TAGVALUE,res.data.tagValue);
-          //存储时长
-          localStorage.setItem(config.FIELD.DURATION,res.data.duration);
-          //更新本地存储开关配置信息
-          localStorage.setItem(config.FIELD.SWITCH,JSON.stringify(res.data));
-          console.log('-----重新启动系统！------');
-          //启动插件
-          startUp();
+    if($){
+      $.ajax({
+        url: config.PATH.SWITCHURL,
+        type: 'get',
+        data: {
+          prCode: prCode
+        },
+        header: {
+          "Origin": "http://localhost:8877"
+        },
+        success: function (res) {
+          console.log(res);
+          if (res && res.flag == '1') {
+            console.log('-----end 配置信息获取结束！------');
+            //存储标记值
+            localStorage.setItem(config.FIELD.TAGVALUE,res.data.tagValue);
+            //存储时长
+            localStorage.setItem(config.FIELD.DURATION,res.data.duration);
+            //更新本地存储开关配置信息
+            localStorage.setItem(config.FIELD.SWITCH,JSON.stringify(res.data));
+            console.log('-----重新启动系统！------');
+            //启动插件
+            startUp();
+          }
         }
-      }
-    });
+      });
+      return;
+    }
+   xmlHttp(config.PATH.SWITCHURL,'get',{prCode: prCode})
   };
 
   var submitData = function () {
@@ -214,18 +234,7 @@
         }
       });
     } else {
-      if (window.XMLHttpRequest) {
-        xml = new XMLHttpRequest();
-      } else if (window.ActiveXObject) {
-        xml = new ActiveXObject("Microsoft.XMLHTTP");
-      }
-      xml.onreadystatechange = function () {
-        if (xml.readyState == 4 && xml.status == 200) {
-          console.log('数据提交成功！');
-        }
-      };
-      xml.open('post', pathUrl);
-      xml.send(paramer);
+
     }
   };
 
