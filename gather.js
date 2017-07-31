@@ -187,7 +187,7 @@
 			}
 		};
 		xml.open(type, url);
-		xml.send(JSON.stringify(params));
+		xml.send('prCode='+config.APP.UPCCODE);
 	};
 
 	/******************************* 请求开关配置 数据上传模块 ******************************/
