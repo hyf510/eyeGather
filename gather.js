@@ -194,6 +194,7 @@
 			return;
 		}
 		/*** 执行xmlHttpRequest请求 ***/
+		console.log(postDataFormat(params));
 		if (window.XMLHttpRequest) {
 			xml = new XMLHttpRequest();
 		} else {
