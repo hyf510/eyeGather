@@ -199,7 +199,9 @@
 		} else {
 			xml = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		xml.setRequestHeader({});
+		if(typeof FormData == "undefined") {
+			xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		}
 		xml.onreadystatechange = function () {
 			if (xml.readyState == 4 && xml.status == 200) {
 				var res = JSON.parse(xml.response);
