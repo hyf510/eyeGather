@@ -154,7 +154,7 @@
 		}
 		console.log(params);
 		/*** 执行AJAX请求 ***/
-		if (!$) {
+		if (this.$) {
 			$.ajax({
 				url: url,
 				type: type,
