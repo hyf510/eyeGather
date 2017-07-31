@@ -141,6 +141,7 @@
 			for (var attr in obj) {
 				data.append(attr, obj[attr]);
 			}
+			console.log(data);
 			return data;
 		} else {
 			var arr = new Array();
@@ -149,6 +150,7 @@
 				arr[i] = encodeURIComponent(attr) + "=" + encodeURIComponent(obj[attr]);
 				i++;
 			}
+			console.log(arr.join("&"));
 			return arr.join("&");
 		}
 	};
