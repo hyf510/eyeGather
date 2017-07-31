@@ -78,7 +78,7 @@
 			if (container.dataSet.length >= parseInt(config.SWITCHSTATE.critical)) {
 				if (config.SWITCHSTATE.isAll == 'Y') {
 					//如配置开关为“上传所有”则触发数据上报
-					xmlHttp(config.PATH.REPORTURL,'post','submitData',submitData);
+					xmlHttp(config.PATH.REPORTURL, 'post', 'submitData', submitData);
 				} else {
 					//移除本地缓存数据，重新构建缓存
 					localStorage.removeItem(config.FIELD.TRAJECTORY);
@@ -131,6 +131,28 @@
 		};
 	};
 
+	var postDataFormat = function (obj) {
+		if (typeof obj != "object") {
+			console.log("输入的参数必须是对象");
+			return;
+		}
+		if (typeof FormData == "function") {
+			var data = new FormData();
+			for (var attr in obj) {
+				data.append(attr, obj[attr]);
+			}
+			return data;
+		} else {
+			var arr = new Array();
+			var i = 0;
+			for (var attr in obj) {
+				arr[i] = encodeURIComponent(attr) + "=" + encodeURIComponent(obj[attr]);
+				i++;
+			}
+			return arr.join("&");
+		}
+	};
+
 	var xmlHttp = function (url, type, query, next) {
 		var xml, params;
 		switch (query) {
@@ -164,7 +186,7 @@
 				},
 				success: function (res) {
 					console.log(res);
-					if(res && res.flag == '1'){
+					if (res && res.flag == '1') {
 						next(res.data);
 					}
 				}
@@ -177,17 +199,18 @@
 		} else {
 			xml = new ActiveXObject("Microsoft.XMLHTTP");
 		}
+		xml.setRequestHeader({});
 		xml.onreadystatechange = function () {
 			if (xml.readyState == 4 && xml.status == 200) {
 				var res = JSON.parse(xml.response);
 				console.log(res);
-				if(res && res.flag == '1'){
+				if (res && res.flag == '1') {
 					next(res.data);
 				}
 			}
 		};
 		xml.open(type, url);
-		xml.send('prCode='+config.APP.UPCCODE);
+		xml.send(postDataFormat(params));
 	};
 
 	/******************************* 请求开关配置 数据上传模块 ******************************/
@@ -218,7 +241,7 @@
 		if (!tagValue || data.tagValue != tagValue) {
 			console.log('----- start 开关配置信息发生变更，重新请求配置信息！-----');
 			//调用更新开关配置接口
-			xmlHttp(config.PATH.SWITCHURL,'post','updateSwitch',updateSwitch);
+			xmlHttp(config.PATH.SWITCHURL, 'post', 'updateSwitch', updateSwitch);
 		} else {
 			console.log('----- 开关配置信息未发生变更，重新构建缓存！-----');
 			//重新构建本地缓存
@@ -312,7 +335,7 @@
 						addData(config.FUN.INTERFACE, DATA);
 						//处理异常情况 触发数据上报
 						if (arguments[0].flag != config.FLAG.SUCCESS) {
-							xmlHttp(config.PATH.REPORTURL,'post','submitData',submitData);
+							xmlHttp(config.PATH.REPORTURL, 'post', 'submitData', submitData);
 						}
 						suc.apply(setting.success, arguments);
 					}
@@ -342,7 +365,7 @@
 			login = localStorage.getItem(config.FIELD.LOGINFO);
 		if (!isExist()) {
 			console.log('------start 配置信息不存在，重新请求配置信息！-----');
-			xmlHttp(config.PATH.SWITCHURL,'post','updateSwitch',updateSwitch);
+			xmlHttp(config.PATH.SWITCHURL, 'post', 'updateSwitch', updateSwitch);
 			return;
 		}
 		if (!history) {
@@ -350,7 +373,7 @@
 		}
 		if (history && login && history != login) {
 			console.log('------start 用户更换账号登录，提交采集数据并重建缓存！-----');
-			xmlHttp(config.PATH.REPORTURL,'post','submitData',submitData);
+			xmlHttp(config.PATH.REPORTURL, 'post', 'submitData', submitData);
 			localStorage.setItem(config.FIELD.USERID, login);
 		}
 		config.SWITCHSTATE = JSON.parse(localStorage.getItem(config.FIELD.SWITCH));
@@ -367,7 +390,7 @@
 		}
 		if (!duration || (parseInt(duration) <= new Date().getTime())) {
 			console.log('------start 配置信息时长失效，重新请求配置信息！-----');
-			xmlHttp(config.PATH.SWITCHURL,'post','updateSwitch',updateSwitch);
+			xmlHttp(config.PATH.SWITCHURL, 'post', 'updateSwitch', updateSwitch);
 			return;
 		}
 		console.log('系统开关已关闭！');
