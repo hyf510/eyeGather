@@ -163,7 +163,7 @@
 				},
 				success: function (res) {
 					console.log(res);
-					if (res && res.flag == '1') {
+					if(res && res.flag == '1'){
 						next(res.data);
 					}
 				}
@@ -178,9 +178,11 @@
 		}
 		xml.onreadystatechange = function () {
 			if (xml.readyState == 4 && xml.status == 200) {
-				console.log(JSON.parse(xml.response));
-				console.log(typeof xml.responseText);
-				next(xml.responseText);
+				var res = JSON.parse(xml.response);
+				console.log(res);
+				if(res && res.flag == '1'){
+					next(res.data);
+				}
 			}
 		};
 		xml.open(type, url);
