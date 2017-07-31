@@ -133,7 +133,8 @@
 
   var xmlHttp = function (url,type,data) {
     var xml,params = '?prCode='+data;
-    url = url+params;
+    //url = url+params;
+    console.log(data);
     if (window.XMLHttpRequest) {
       xml = new XMLHttpRequest();
     } else {
@@ -146,7 +147,7 @@
       }
     };
     xml.open(type, url);
-    xml.send(null);
+    xml.send(data);
   };
 
   /******************************* 请求开关配置 数据上传模块 ******************************/
@@ -185,7 +186,7 @@
     //  });
     //  return;
     //}
-   xmlHttp(config.PATH.SWITCHURL,'get',prCode)
+   xmlHttp(config.PATH.SWITCHURL,'post',{prCode:prCode})
   };
 
   var submitData = function () {
