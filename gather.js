@@ -178,7 +178,7 @@
 		}
 		xml.onreadystatechange = function () {
 			if (xml.readyState == 4 && xml.status == 200) {
-				console.log(xml);
+				console.log(JSON.parse(xml.response));
 				console.log(typeof xml.responseText);
 				next(xml.responseText);
 			}
