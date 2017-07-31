@@ -152,6 +152,7 @@
 				};
 				break;
 		}
+		console.log(params);
 		/*** 执行AJAX请求 ***/
 		if (!$) {
 			$.ajax({
@@ -186,7 +187,7 @@
 			}
 		};
 		xml.open(type, url);
-		xml.send(params);
+		xml.send(JSON.stringify(params));
 	};
 
 	/******************************* 请求开关配置 数据上传模块 ******************************/
