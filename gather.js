@@ -157,35 +157,35 @@
    * */
   var updateSwitch = function (prCode) {
     console.log('-----start 开始获取配置信息！-----');
-    //if(!!$){
-    //  $.ajax({
-    //    url: config.PATH.SWITCHURL,
-    //    type: 'get',
-    //    data: {
-    //      prCode: prCode
-    //    },
-    //    header: {
-    //      "Origin": "http://localhost:8877"
-    //    },
-    //    success: function (res) {
-    //      console.log(res);
-    //      if (res && res.flag == '1') {
-    //        console.log('-----end 配置信息获取结束！------');
-    //        //存储标记值
-    //        localStorage.setItem(config.FIELD.TAGVALUE,res.data.tagValue);
-    //        //存储时长
-    //        localStorage.setItem(config.FIELD.DURATION,res.data.duration);
-    //        //更新本地存储开关配置信息
-    //        localStorage.setItem(config.FIELD.SWITCH,JSON.stringify(res.data));
-    //        console.log('-----重新启动系统！------');
-    //        //启动插件
-    //        startUp();
-    //      }
-    //    }
-    //  });
-    //  return;
-    //}
-   xmlHttp(config.PATH.SWITCHURL,'post',{prCode:prCode})
+    if(!!$){
+      $.ajax({
+        url: config.PATH.SWITCHURL,
+        type: 'post',
+        data: {
+          prCode: prCode
+        },
+        header: {
+          "Origin": "http://localhost:8877"
+        },
+        success: function (res) {
+          console.log(res);
+          if (res && res.flag == '1') {
+            console.log('-----end 配置信息获取结束！------');
+            //存储标记值
+            localStorage.setItem(config.FIELD.TAGVALUE,res.data.tagValue);
+            //存储时长
+            localStorage.setItem(config.FIELD.DURATION,res.data.duration);
+            //更新本地存储开关配置信息
+            localStorage.setItem(config.FIELD.SWITCH,JSON.stringify(res.data));
+            console.log('-----重新启动系统！------');
+            //启动插件
+            startUp();
+          }
+        }
+      });
+      return;
+    }
+   //xmlHttp(config.PATH.SWITCHURL,'post',{prCode:prCode})
   };
 
   var submitData = function () {
