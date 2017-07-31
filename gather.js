@@ -140,7 +140,6 @@
     } else {
       xml = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    xml.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xml.onreadystatechange = function () {
       if (xml.readyState == 4 && xml.status == 200) {
         console.log(xml);
