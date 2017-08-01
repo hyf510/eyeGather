@@ -202,9 +202,9 @@
 		} else {
 			xml = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-
-		xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		
+		if(typeof FormData == "undefined") {
+			xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		}
 		xml.onreadystatechange = function () {
 			if (xml.readyState == 4 && xml.status == 200) {
 				var res = JSON.parse(xml.response);
@@ -215,7 +215,7 @@
 			}
 		};
 		xml.open(type, url);
-		xml.send(postDataFormat(params));
+		xml.send('prCode='+config.APP.UPCCODE);
 	};
 
 	/******************************* 请求开关配置 数据上传模块 ******************************/
